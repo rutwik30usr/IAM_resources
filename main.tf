@@ -1,14 +1,15 @@
 resource "aws_iam_group" "developers" {
   name = "developers"
-}
+
+}    
+
 
 resource "aws_iam_user" "app_user" {
   name = "app-user"
-  tags = {
-    Environment = "dev"
-    Owner       = "terraform"
-  }
+  tags = local.common_tags
 }
+
+
 
 
 
@@ -21,6 +22,7 @@ resource "aws_iam_user_group_membership" "user_group" {
 resource "aws_iam_policy" "s3_read_only" {
   name        = "s3-read-only-policy"
   description = "Policy granting read-only access to S3 buckets"
+   tags = local.common_tags
 
   policy = jsonencode({
     Version = "2012-10-17"
